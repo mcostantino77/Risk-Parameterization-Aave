@@ -1,20 +1,7 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[383]:
-
-
 import requests
 import pandas as pd
 import json
 from datetime import datetime
-
-
-# In[384]:
-
-
-txnID = {'txnID' : ""}
-
 
 # Need to use this index to flatten the dictionary ["data"]["userTransactions"].
 
@@ -107,15 +94,12 @@ query TotalRepays($txnID: ID) {
 }
 """
 
-
-# In[ ]:
-
-
 query_list = [query_TotalTransactions,                                        # LIST OF ALL QUERIES TO BE RUN
               query_TotalLiquidations, 
               query_TotalBorrows, 
               query_TotalDeposits, 
               query_TotalRepays]
+
 query_entity = ["userTransactions",                                           # LIST OF ALL ENTITIES NEEDED TO QUERY
                 "liquidationCalls",
                 "borrows",
@@ -128,8 +112,6 @@ for query in query_list:
 
 entity = 0
 count = 1
-
-
 
 for query in query_list:                                                      # NEED "for loop" TO RUN THROUGH EACH QUERY
     
@@ -155,30 +137,12 @@ for query in query_list:                                                      # 
             count += 1
             break
 
-            
     time2 = datetime.now()
     entity = entity + 1
     print("For query number ", entity, ", it took ", count," iterations and this much time ", time2 - time1, ".", sep = "")
-        
-
-
-# In[386]:
-
+    
 
 # Review the total number of unique pieces 
 for query in query_dict:
     print("Query ", list(query_dict.keys()).index(query) + 1, ":", sep = "")
     print(query_dict[query].nunique(), "\n")
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
